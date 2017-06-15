@@ -97,8 +97,8 @@ function fastprompt()
             PS1="\[\e]0;[\u@\h] \W\a\]\[\e[${GREEN}\]\W\[\e[${NC}\] \$ "
           #fi
           ;;
-	    linux)
-	        PS1="\[\e[${HILIT}\]\h \[\e[${BLUE}\]\u \[\e[${GREEN}\]\W\[\e[${NC}\] \$ " ;;
+        linux)
+            PS1="\[\e[${HILIT}\]\h \[\e[${BLUE}\]\u \[\e[${GREEN}\]\W\[\e[${NC}\] \$ " ;;
         *)
             PS1="[\h] \W > " ;;
     esac
@@ -106,6 +106,12 @@ function fastprompt()
 }
 
 fastprompt
+### To use powerline
+#powerline-daemon -q
+#POWERLINE_BASH_CONTINUATION=1
+#POWERLINE_BASH_SELECT=1
+#. /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+
 
 #-----------------------------------
 # File & strings related functions:
