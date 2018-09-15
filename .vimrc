@@ -183,7 +183,7 @@ let g:airline_theme='solarized'
 " Git gutter
 let g:gitgutter_enabled = 1
 let g:gitgutter_eager = 0
-let g:gitgutter_sign_column_always = 1
+set signcolumn=yes
 highlight clear SignColumn
 
 " Searching the file system
@@ -196,12 +196,12 @@ map <Leader>es :Tabularize /=\zs<cr>
 map <Leader>cs :Tabularize /:\zs<cr>
 
 " Camel Case Motion (for dealing with programming code)
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-sunmap w
-sunmap b
-sunmap e
+"map <silent> w <Plug>CamelCaseMotion_w
+"map <silent> b <Plug>CamelCaseMotion_b
+"map <silent> e <Plug>CamelCaseMotion_e
+"sunmap w
+"sunmap b
+"sunmap e
 
 " awesome, inserts new line without going into insert mode
 map <S-Enter> O<ESC>
@@ -221,9 +221,6 @@ map <S-Enter> O<ESC>
 " to map something in just NORMAL mode use :nmap or :nnoremap
 " to map something in just VISUAL mode use :vmap or :vnoremap
 
-" Clear search buffer
-:nnoremap § :nohlsearch<cr>
-
 " From mbrochh: Bind nohl Removes highlight of your last search
 noremap <C-n> :nohl<CR>
 vnoremap <C-n> :nohl<CR>
@@ -231,9 +228,6 @@ inoremap <C-n> :nohl<CR>
 
 " Command to use sudo when needed
 cmap w!! %!sudo tee > /dev/null %
-
-" File System Explorer (in horizontal split)
-map <leader>. :Sexplore<cr>
 
 " Buffers
 map <leader>yt :ls<cr>
@@ -253,14 +247,6 @@ map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
-
-" Handling horizontal Vim windows doesn't appear to be possible.
-" Attempting to map <C-W> < and > didn't work
-" Same with mapping <C-W>|
-
-" Make splitting Vim windows easier
-map <leader>; <C-W>s
-map <leader>` <C-W>v
 
 " map sort function to a key
 vnoremap <Leader>s :sort<CR>
