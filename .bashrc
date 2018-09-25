@@ -2,7 +2,7 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+  . /etc/bashrc
 fi
 
 PROMPT_COLOR='39;1m'
@@ -48,11 +48,11 @@ alias mysqladmin=/usr/local/mysql/bin/mysqladmin
 alias djangotest="coverage run --source='.' manage.py test; coverage report; coverage html;"
 
 set -o vi
-ulimit -S -c 0		# Don't want any coredumps
+ulimit -S -c 0  # Don't want any coredumps
 set -o notify
 set -o noclobber
 set -o ignoreeof
-set -o nounset
+#set -o nounset
 #set -o xtrace          # useful for debugging
 
 # Enable options:
@@ -64,42 +64,42 @@ shopt -s sourcepath
 shopt -s no_empty_cmd_completion  # bash>=2.04 only
 shopt -s cmdhist
 shopt -s histappend histreedit histverify
-shopt -s extglob	# necessary for programmable completion
+shopt -s extglob # necessary for programmable completion
 export HISTCONTROL=erasedups
 export HISTSIZE=5000
 export HISTFILESIZE=10000
 
 # Disable options:
 shopt -u mailwarn
-unset MAILCHECK		# I dont want my shell to warn me of incoming mail
+unset MAILCHECK  # I dont want my shell to warn me of incoming mail
 
 # Define some colors
-red='0;31m'
-RED='1;31m'
-green='0;32m'
-GREEN='1;32m'
-yellow='0;33m'
-YELLOW='1;33m'
-blue='0;34m'
-BLUE='1;34m'
-cyan='0;36m'
-CYAN='1;36m'
-NC='0m'
+# red='0;31m'
+# RED='1;31m'
+# green='0;32m'
+# GREEN='1;32m'
+# yellow='0;33m'
+# YELLOW='1;33m'
+# blue='0;34m'
+# BLUE='1;34m'
+# cyan='0;36m'
+# CYAN='1;36m'
+# NC='0m'
 
 #---------------
 # Shell Prompt
 #---------------
 
-HILIT=${CYAN}  # local machine: prompt will be partly cyan
+# HILIT=${CYAN}  # local machine: prompt will be partly cyan
 
 #  --> Replace instances of \W with \w in prompt functions below
 #+ --> to get display of full path name.
 
-function fastprompt()
-{
-    unset PROMPT_COMMAND
-    case $TERM in
-        *term | rxvt | *termc | *term-color | *term-256color)
+# function fastprompt()
+# {
+    # unset PROMPT_COMMAND
+    # case $TERM in
+        # *term | rxvt | *termc | *term-color | *term-256color)
           #powerline_path=$(python -c 'import pkgutil; print pkgutil.get_loader("powerline").filename' 2>/dev/null)
           #powerline_path="/usr/local/lib/python2.7/site-packages/powerline"
           #powerline_path=""
@@ -108,24 +108,48 @@ function fastprompt()
           #    . ${powerline_path}/bindings/bash/powerline.sh
         #  else
             # PS1="\[\e]0;[\u@\h] \W\a\]\[\e[${HILIT}\]\h \[\e[${BLUE}\]\u \[\e[${GREEN}\]\W\[\e[${NC}\] \$ "
-            PS1="\[\e]0;[\u@\h] \W\a\]\[\e[${GREEN}\]\W\[\e[${NC}\] \$ "
+            # PS1="\[\e]0;[\u@\h] \W\a\]\[\e[${GREEN}\]\W\[\e[${NC}\] \$ "
           #fi
-          ;;
-        linux)
-            PS1="\[\e[${HILIT}\]\h \[\e[${BLUE}\]\u \[\e[${GREEN}\]\W\[\e[${NC}\] \$ " ;;
-        *)
-            PS1="[\h] \W > " ;;
-    esac
+          # ;;
+        # linux)
+            # PS1="\[\e[${HILIT}\]\h \[\e[${BLUE}\]\u \[\e[${GREEN}\]\W\[\e[${NC}\] \$ " ;;
+        # *)
+            # PS1="[\h] \W > " ;;
+    # esac
     # export PROMPT_COMMAND="history -n; history -w; history-c; history -r; $PROMPT_COMMAND"
-}
+# }
 
-fastprompt
+# fastprompt
 ### To use powerline
 #powerline-daemon -q
 #POWERLINE_BASH_CONTINUATION=1
 #POWERLINE_BASH_SELECT=1
 #. /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
 
+if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+  __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
+   # Set config variables first
+   GIT_PROMPT_ONLY_IN_REPO=1
+
+  # GIT_PROMPT_FETCH_REMOTE_STATUS=0   # uncomment to avoid fetching remote status
+  # GIT_PROMPT_IGNORE_SUBMODULES=1 # uncomment to avoid searching for changed files in submodules
+
+  # GIT_PROMPT_SHOW_UPSTREAM=1 # uncomment to show upstream tracking branch
+  GIT_PROMPT_SHOW_UNTRACKED_FILES=no # can be no, normal or all; determines counting of untracked files
+
+  # GIT_PROMPT_SHOW_CHANGED_FILES_COUNT=0 # uncomment to avoid printing the number of changed files
+
+  # GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh # uncomment to support Git older than 1.7.10
+
+  # GIT_PROMPT_START=...    # uncomment for custom prompt start sequence
+  # GIT_PROMPT_END=...      # uncomment for custom prompt end sequence
+
+  # as last entry source the gitprompt script
+  # GIT_PROMPT_THEME=Custom # use custom theme specified in file GIT_PROMPT_THEME_FILE (default ~/.git-prompt-colors.sh)
+  # GIT_PROMPT_THEME_FILE=~/.git-prompt-colors.sh
+  GIT_PROMPT_THEME=Solarized # use theme optimized for solarized color scheme
+  source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
+fi
 
 #-----------------------------------
 # File & strings related functions:
@@ -135,7 +159,7 @@ fastprompt
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
 # Find a file with pattern $1 in name and Execute $2 on it:
 function fe() { find . -type f -iname '*'$1'*' -exec "${2:-file}" {} \;  ; }
-# find pattern in a set of filesand highlight them:
+# find pattern in a set of files and highlight them:
 function fstr()
 {
     OPTIND=1
@@ -231,6 +255,7 @@ function ask()
     esac
 }
 
+# hack <problem name> <language extension: 'c', 'java'>
 function hack()
 {
     mkdir ${1}
@@ -308,13 +333,13 @@ grep ^"$2" |sort -u ;
 _longopts_func ()
 {
     case "${2:-*}" in
-	-*)	;;
-	*)	return ;;
+ -*) ;;
+ *) return ;;
     esac
 
     case "$1" in
-	\~*)	eval cmd="$1" ;;
-	*)	cmd="$1" ;;
+ \~*) eval cmd="$1" ;;
+ *) cmd="$1" ;;
     esac
     COMPREPLY=( $(_get_longopts ${1} ${2} ) )
 }
