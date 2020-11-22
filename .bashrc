@@ -19,6 +19,7 @@ export PAGER=less
 export LESS='-iMnR'
 export HOST=`hostname`
 export WORKON_HOME="$HOME/.virtualenvs"
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
 
 # pip should only run if there is a virtualenv currently activated
