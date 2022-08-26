@@ -148,8 +148,7 @@ function ghpr() {
 }
 
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
-fpath+=~/.zfunc
+zstyle ':completion:*' cache-path ~/.cache/zsh
 
 autoload -U compinit
 compinit -i
@@ -157,7 +156,12 @@ compinit -i
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if [[ -d $HOME/.pyenv ]]
+then
+    export PYENV_ROOT="$HOME/.pyenv"
+    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
+
+fpath+=~/.zfunc
 fpath+=${ZDOTDIR:-~}/.zsh_functions
