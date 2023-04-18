@@ -1,6 +1,3 @@
-[user]
-	name = Nehal Patel
-	email = hereisnehal@gmail.com
 [apply]
 	whitespace = nowarn
 [color]
@@ -29,3 +26,5 @@
     cmd = /usr/bin/opendiff $LOCAL $REMOTE
 [difftool]
     prompt = false
+[core]
+	pager = less -FRX

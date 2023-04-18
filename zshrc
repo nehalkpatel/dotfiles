@@ -109,43 +109,10 @@ export LESS=-iXFR
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
 [[ ! -f ~/.zsh_aliases ]] || source ~/.zsh_aliases
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
 
-# Creates a Github PR from command line.
-# Copies url + title to clipboard on success.
-function ghpr() {
-  # Push to remote.
-  # Stop-gap until `gh` supports this natively without prompting.
-  # https://github.com/cli/cli/issues/1718#issuecomment-748292216
-  git push -u origin HEAD
-  if [ $? -ne 0 ]; then
-    echo "\nFailed to push remote branch!"
-    return
-  fi
-
-  # Create the PR.
-  gh pr create --reviewer verily-src/picard-fw --fill
-  if [ $? -ne 0 ]; then
-    echo "\nFailed to create PR!"
-    return
-  fi
-
-  # Enable auto-merge.
-  gh pr merge --squash --auto --delete-branch
-  if [ $? -ne 0 ]; then
-    echo "\nFailed to enable auto-merge!"
-    return
-  fi
-
-  # Print (and copy) string for Slack #pullrequests.
-  STATUS=$(gh pr view)
-  URL=$(echo ${STATUS} | grep 'url:' | cut -f2)
-  TITLE=$(echo ${STATUS} | grep 'title:' | cut -f2)
-  OUTPUT="${URL} | ${TITLE}"
-  echo "\n\nSuccess. Copied to clipboard:"
-  echo ${OUTPUT} && echo -n ${OUTPUT} | xclip -selection clipboard
-}
+source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh
