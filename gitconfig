@@ -1,3 +1,6 @@
+[user]
+	name = Nehal Patel
+  email = hereisnehal@gmail.com
 [apply]
 	whitespace = nowarn
 [color]
@@ -28,3 +31,4 @@
     prompt = false
 [core]
 	pager = less -FRX
+	editor = nvim

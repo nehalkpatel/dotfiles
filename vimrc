@@ -330,6 +330,8 @@ endfun
 autocmd FilterWritePre * call SetDiffColors()
 " }}}
 
+set rtp+=/opt/homebrew/opt/fzf
+
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif

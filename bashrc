@@ -398,3 +398,5 @@ _make_targets ()
 }
 
 complete -F _make_targets -X '+($*|*.[cho])' make gmake pmake
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
