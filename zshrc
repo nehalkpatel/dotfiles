@@ -68,7 +68,14 @@ setopt share_history          # Share history between different instances of the
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ `uname` == "Darwin" ]]; then
+  export USR_DIR=/opt/homebrew
+else
+  export USR_DIR=/usr
+fi
+
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=${USR_DIR}/share/zsh-syntax-highlighting/highlighters
+source ${USR_DIR}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 eval "$(starship init zsh)"
 
