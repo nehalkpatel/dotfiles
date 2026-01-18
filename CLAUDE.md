@@ -1,0 +1,50 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Overview
+
+This is a personal dotfiles repository containing configuration files for macOS and Arch Linux systems. Configs are symlinked from `~/.config/` to this repository (e.g., `~/.config/nvim` → `dotfiles/nvim`).
+
+## Structure
+
+- **Shell**: zsh with starship prompt, vi keybindings, fzf integration, zsh-syntax-highlighting
+- **Editors**: Neovim (primary, Lua-based config) and Vim (legacy vimrc)
+- **Terminal**: Alacritty, Kitty
+- **Window Management**:
+  - macOS: yabai + skhd
+  - Linux: Hyprland, Sway, i3
+- **Git**: Custom aliases for log formatting (`git ls`, `git ll`, `git ld`)
+
+## Neovim Configuration
+
+The Neovim setup uses lazy.nvim for plugin management with a modular Lua structure:
+
+```
+nvim/
+├── init.lua           # Entry point, loads config/
+├── lua/
+│   ├── config/        # Core configuration
+│   │   ├── init.lua   # Load order: globals → options → lazy → keymaps → autocmds
+│   │   ├── keymaps.lua
+│   │   └── lazy.lua   # Plugin manager bootstrap
+│   ├── plugins/       # Individual plugin specs (one file per plugin)
+│   └── util/          # Helper modules (keymapper)
+```
+
+Key plugins: LSP (nvim-lspconfig, mason, lspsaga), Telescope, Treesitter, nvim-cmp, nvim-tree, Copilot.
+
+## Key Conventions
+
+- Leader key mappings use `<leader>` prefix defined in config/globals.lua
+- Window navigation: `<C-h/j/k/l>` for pane movement
+- Buffer navigation: `<leader>bn/bp` for next/prev
+- File tree: `<leader>e` toggle, `<leader>m` focus
+
+## Platform Differences
+
+The zshrc detects OS and sets `USR_DIR` accordingly:
+- macOS: `/opt/homebrew` (Homebrew)
+- Linux: `/usr` (system packages)
+
+The `packages.txt` file lists Arch Linux packages for system setup.

@@ -17,6 +17,22 @@ export LESS=-iXFR
 # For a full list of active aliases, run `alias`.
 
 bindkey -v
+export KEYTIMEOUT=1
+
+# Vi-mode cursor shape: beam for insert, block for normal
+function zle-keymap-select {
+	if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+		echo -ne '\e[2 q'
+	elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ $1 = 'beam' ]]; then
+		echo -ne '\e[6 q'
+	fi
+}
+zle -N zle-keymap-select
+
+# Start with beam cursor
+zle-line-init() { echo -ne '\e[6 q' }
+zle -N zle-line-init
+
 [[ ! -f ~/.zsh_aliases ]] || source ~/.zsh_aliases
 
 autoload -U compinit && compinit -i
@@ -25,12 +41,8 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh
 
 
-if [[ -d $HOME/.pyenv ]]
-then
-    export PYENV_ROOT="$HOME/.pyenv"
-    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-fi
+# uv (Python version & package manager)
+eval "$(uv generate-shell-completion zsh)"
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
@@ -66,7 +78,8 @@ setopt hist_verify            # Do not execute immediately upon history expansio
 setopt inc_append_history     # Write to the history file immediately, not when the shell exits.
 setopt share_history          # Share history between different instances of the shell.
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 if [[ `uname` == "Darwin" ]]; then
   export USR_DIR=/opt/homebrew
@@ -77,5 +90,6 @@ fi
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=${USR_DIR}/share/zsh-syntax-highlighting/highlighters
 source ${USR_DIR}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 

@@ -1,6 +1,7 @@
 return {
-  "williamboman/mason.nvim",
-  cmd = "Mason",
+	"williamboman/mason.nvim",
+	cond = not vim.g.vscode,
+	cmd = "Mason",
   event = "BufReadPre",
   config = {
     ui = {

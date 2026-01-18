@@ -1,11 +1,43 @@
-local on_attach = require("util.lsp").on_attach
-local diagnostic_signs = require("util.lsp").diagnostic_signs
+local diagnostic_signs = { Error = " ", Warn = " ", Hint = "󰌵 ", Info = "" }
+
+local on_attach = function(client, bufnr)
+	local map = function(keys, func, desc)
+		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+	end
+
+	-- LSP navigation
+	map("<leader>fd", "<cmd>Lspsaga finder<cr>", "LSP finder")
+	map("<leader>gd", "<cmd>Lspsaga peek_definition<cr>", "Peek definition")
+	map("<leader>gD", "<cmd>Lspsaga goto_definition<cr>", "Go to definition")
+	map("<leader>gr", "<cmd>Lspsaga finder ref<cr>", "Find references")
+
+	-- LSP actions
+	map("<leader>ca", "<cmd>Lspsaga code_action<cr>", "Code action")
+	map("<leader>rn", "<cmd>Lspsaga rename<cr>", "Rename symbol")
+	map("K", "<cmd>Lspsaga hover_doc<cr>", "Hover documentation")
+
+	-- Diagnostics
+	map("<leader>D", "<cmd>Lspsaga show_line_diagnostics<cr>", "Line diagnostics")
+	map("<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<cr>", "Cursor diagnostics")
+	map("[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", "Previous diagnostic")
+	map("]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", "Next diagnostic")
+
+	-- Format with conform (if available)
+	map("<leader>lf", function()
+		require("conform").format({ bufnr = bufnr })
+	end, "Format buffer")
+
+	-- Python-specific
+	if client.name == "pyright" then
+		map("<leader>oi", "<cmd>PyrightOrganizeImports<cr>", "Organize imports")
+	end
+end
 
 local config = function()
-	require("neoconf").setup({})
-	local cmp_nvim_lsp = require("cmp_nvim_lsp")
 	local lspconfig = require("lspconfig")
+	local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+	-- Set up diagnostic signs
 	for type, icon in pairs(diagnostic_signs) do
 		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -13,18 +45,16 @@ local config = function()
 
 	local capabilities = cmp_nvim_lsp.default_capabilities()
 
-	-- lua
+	-- Lua (for Neovim config editing)
 	lspconfig.lua_ls.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
-		settings = { -- custom settings for lua
+		settings = {
 			Lua = {
-				-- make the language server recognize "vim" global
 				diagnostics = {
 					globals = { "vim" },
 				},
 				workspace = {
-					-- make language server aware of runtime files
 					library = {
 						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
 						[vim.fn.stdpath("config") .. "/lua"] = true,
@@ -34,14 +64,7 @@ local config = function()
 		},
 	})
 
-	-- json
-	lspconfig.jsonls.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = { "json", "jsonc" },
-	})
-
-	-- python
+	-- Python
 	lspconfig.pyright.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -58,32 +81,6 @@ local config = function()
 		},
 	})
 
-	-- bash
-	lspconfig.bashls.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = { "sh", "aliasrc" },
-	})
-
-	-- css, sass, scss, less
-	lspconfig.emmet_ls.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = {
-			"css",
-			"sass",
-			"scss",
-			"less",
-			"html",
-		},
-	})
-
-	-- docker
-	lspconfig.dockerls.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-	})
-
 	-- C/C++
 	lspconfig.clangd.setup({
 		capabilities = capabilities,
@@ -93,69 +90,16 @@ local config = function()
 			"--offset-encoding=utf-16",
 		},
 	})
-
-	local luacheck = require("efmls-configs.linters.luacheck")
-	local stylua = require("efmls-configs.formatters.stylua")
-	local flake8 = require("efmls-configs.linters.flake8")
-	local black = require("efmls-configs.formatters.black")
-	local eslint_d = require("efmls-configs.linters.eslint_d")
-	local prettier_d = require("efmls-configs.formatters.prettier_d")
-	local fixjson = require("efmls-configs.formatters.fixjson")
-	local shellcheck = require("efmls-configs.linters.shellcheck")
-	local shfmt = require("efmls-configs.formatters.shfmt")
-	local hadolint = require("efmls-configs.linters.hadolint")
-	local cpplint = require("efmls-configs.linters.cpplint")
-	local clangformat = require("efmls-configs.formatters.clang_format")
-
-	-- configure efm server
-	lspconfig.efm.setup({
-		filetypes = {
-			"lua",
-			"python",
-			"json",
-			"jsonc",
-			"sh",
-			"markdown",
-			"docker",
-			"html",
-			"css",
-			"c",
-			"cpp",
-		},
-		init_options = {
-			documentFormatting = true,
-			documentRangeFormatting = true,
-			hover = true,
-			documentSymbol = true,
-			codeAction = true,
-			completion = true,
-		},
-		settings = {
-			languages = {
-				lua = { luacheck, stylua },
-				python = { flake8, black },
-				json = { eslint_d, fixjson },
-				jsonc = { eslint_d, fixjson },
-				sh = { shellcheck, shfmt },
-				markdown = { prettier_d },
-				docker = { hadolint, prettier_d },
-				html = { prettier_d },
-				css = { prettier_d },
-				c = { clangformat, cpplint },
-				cpp = { clangformat, cpplint },
-			},
-		},
-	})
 end
 
 return {
 	"neovim/nvim-lspconfig",
+	cond = not vim.g.vscode,
 	config = config,
 	lazy = false,
 	dependencies = {
 		"windwp/nvim-autopairs",
 		"williamboman/mason.nvim",
-		"creativenull/efmls-configs-nvim",
 		"hrsh7th/nvim-cmp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-nvim-lsp",

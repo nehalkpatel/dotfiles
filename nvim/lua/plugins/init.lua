@@ -1,4 +1,2 @@
-return {
-  { "folke/neoconf.nvim", cmd = "Neoconf" },
-  "folke/neodev.nvim",
-}
+-- General plugins that don't need individual config files
+return {}

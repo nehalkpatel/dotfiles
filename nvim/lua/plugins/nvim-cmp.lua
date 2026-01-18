@@ -1,5 +1,6 @@
 return {
 	"hrsh7th/nvim-cmp",
+	cond = not vim.g.vscode,
 	config = function()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")

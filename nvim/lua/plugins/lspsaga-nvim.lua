@@ -1,6 +1,7 @@
 return {
-	"glepnir/lspsaga.nvim",
+	"nvimdev/lspsaga.nvim",
 	lazy = false,
+	cond = not vim.g.vscode,
 	config = function()
 		require("lspsaga").setup({
 			-- keybinds for navigation in lspsaga window
