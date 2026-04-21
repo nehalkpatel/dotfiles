@@ -1,21 +1,9 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$PATH
+# ~/.zshrc - Zsh interactive shell config
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Shared aliases, env, and PATH (works under bash and zsh)
+[[ -f ~/.shell_common ]] && source ~/.shell_common
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-
-export EDITOR='nvim'
-export VISUAL=$EDITOR
-export LESS=-iXFR
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-
+# Vi keybindings with responsive mode switching
 bindkey -v
 export KEYTIMEOUT=1
 
@@ -33,19 +21,14 @@ zle -N zle-keymap-select
 zle-line-init() { echo -ne '\e[6 q' }
 zle -N zle-line-init
 
-[[ ! -f ~/.zsh_aliases ]] || source ~/.zsh_aliases
-
+# Completion
 autoload -U compinit && compinit -i
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh
-
-
-# uv (Python version & package manager)
-eval "$(uv generate-shell-completion zsh)"
-
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
+# Shell options
 setopt correct              # Auto correct mistakes
 setopt extendedglob         # Extended globbing. Allows regular expressions with *
 setopt nocaseglob           # Case-insensitive globbing
@@ -59,7 +42,6 @@ setopt interactive_comments # Comments even in interactive shells.
 setopt no_beep              # Don't beep on error.
 setopt prompt_subst         # Substitution of parameters inside the prompt each time the prompt is drawn.
 setopt pushd_ignore_dups    # Don't push multiple copies directory onto the directory stack.
-#setopt pushd_minus          # Swap the meaning of cd +1 and cd -1 to the opposite.
 
 # History
 HISTSIZE=5000
@@ -78,18 +60,14 @@ setopt hist_verify            # Do not execute immediately upon history expansio
 setopt inc_append_history     # Write to the history file immediately, not when the shell exits.
 setopt share_history          # Share history between different instances of the shell.
 
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
+# Tool integrations
+command -v uv >/dev/null 2>&1 && eval "$(uv generate-shell-completion zsh)"
+command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)
 
-if [[ `uname` == "Darwin" ]]; then
-  export USR_DIR=/opt/homebrew
-else
-  export USR_DIR=/usr
+if [[ -d "${USR_DIR}/share/zsh-syntax-highlighting" ]]; then
+    export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=${USR_DIR}/share/zsh-syntax-highlighting/highlighters
+    source ${USR_DIR}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=${USR_DIR}/share/zsh-syntax-highlighting/highlighters
-source ${USR_DIR}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-eval "$(direnv hook zsh)"
-eval "$(starship init zsh)"
-
+command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
