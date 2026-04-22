@@ -24,19 +24,24 @@ local filetypes = {
 	"markdown",
 }
 
+local has_cli = vim.fn.executable("tree-sitter") == 1
+	and (vim.fn.system({ "tree-sitter", "--version" }) and vim.v.shell_error == 0)
+
 return {
 	"nvim-treesitter/nvim-treesitter",
 	branch = "main",
 	lazy = false,
 	cond = not vim.g.vscode,
-	build = ":TSUpdate",
+	build = has_cli and ":TSUpdate" or nil,
 	config = function()
-		require("nvim-treesitter").install(parsers)
+		if has_cli then
+			require("nvim-treesitter").install(parsers)
+		end
 
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = filetypes,
 			callback = function()
-				vim.treesitter.start()
+				pcall(vim.treesitter.start)
 				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 			end,
 		})

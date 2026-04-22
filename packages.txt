@@ -61,6 +61,7 @@ swaybg
 swayidle
 swaylock
 thunar
+tree-sitter-cli
 ttf-0xproto-nerd
 ttf-3270-nerd
 ttf-agave-nerd
