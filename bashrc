@@ -27,3 +27,6 @@ command -v uv       >/dev/null 2>&1 && eval "$(uv generate-shell-completion bash
 command -v fzf      >/dev/null 2>&1 && eval "$(fzf --bash)"
 command -v direnv   >/dev/null 2>&1 && eval "$(direnv hook bash)"
 command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
+
+# Machine-specific overrides (not tracked in dotfiles)
+[[ -f ~/.bashrc.local ]] && source ~/.bashrc.local
