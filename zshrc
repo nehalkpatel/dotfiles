@@ -71,3 +71,6 @@ fi
 
 command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
 command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
+
+# Machine-specific overrides (not tracked in dotfiles)
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
