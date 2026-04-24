@@ -9,6 +9,7 @@
 	autoSetupRemote = true
 [fetch]
 	prune = true
+	pruneTags = true
 [rerere]
 	enabled = true
 [apply]
@@ -42,3 +43,8 @@
 	lc = "!f() { git ll \"$1\"^..\"$1\"; }; f"
 	diffr = "!f() { git diff \"$1\"^..\"$1\"; }; f"
 	done = "!f() { git branch | grep \"$1\" | cut -c 3- | grep -v done | xargs -I{} git branch -m {} done-{}; }; f"
+	fp = push --force-with-lease
+	prune-local = "!git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D"
+	cleanup = "!git checkout main && git pull && git branch --merged main | grep -v '^\\*\\|main' | xargs -r git branch -d"
+[include]
+	path = ~/.gitconfig.local
