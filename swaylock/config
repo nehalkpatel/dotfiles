@@ -2,3 +2,23 @@ ignore-empty-password
 daemonize
 image=~/wallpaper/mountain-lake.jpg
 
+# Theme: Gruvbox Dark Hard
+ring-color=3c3836
+ring-ver-color=fabd2f
+ring-wrong-color=fb4934
+ring-clear-color=fe8019
+key-hl-color=b8bb26
+bs-hl-color=fb4934
+inside-color=1d202180
+inside-ver-color=1d202180
+inside-wrong-color=1d202180
+inside-clear-color=1d202180
+text-color=ebdbb2
+text-ver-color=ebdbb2
+text-wrong-color=ebdbb2
+text-clear-color=ebdbb2
+line-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+line-clear-color=00000000
+separator-color=00000000

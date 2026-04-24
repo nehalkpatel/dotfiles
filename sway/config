@@ -229,4 +229,25 @@ bar {
   swaybar_command waybar
 }
 
+### Theme: Gruvbox Dark Hard
+set $bg       #1d2021
+set $bg1      #3c3836
+set $fg       #ebdbb2
+set $fg_dim   #a89984
+set $accent   #fe8019
+set $urgent   #fb4934
+
+# class                 border   bg       text  indicator  child_border
+client.focused          $accent  $accent  $bg   $accent    $accent
+client.focused_inactive $bg1     $bg1     $fg   $bg1       $bg1
+client.unfocused        $bg1     $bg1     $fg_dim $bg1     $bg1
+client.urgent           $urgent  $urgent  $bg   $urgent    $urgent
+
+# Breathable gaps and borders
+gaps inner 12
+gaps outer 4
+smart_gaps on
+default_border pixel 2
+default_floating_border pixel 2
+
 include /etc/sway/config.d/*
