@@ -30,6 +30,7 @@ nano
 neovim
 networkmanager
 ninja
+noto-fonts-emoji
 npm
 openssh
 otf-aurulent-nerd
