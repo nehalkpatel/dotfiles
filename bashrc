@@ -25,6 +25,7 @@ shopt -s globstar 2>/dev/null # ** matches all files and directories
 # Tool integrations
 command -v uv       >/dev/null 2>&1 && eval "$(uv generate-shell-completion bash)"
 command -v fzf      >/dev/null 2>&1 && eval "$(fzf --bash)"
+command -v zoxide   >/dev/null 2>&1 && eval "$(zoxide init bash)"
 command -v direnv   >/dev/null 2>&1 && eval "$(direnv hook bash)"
 command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
 

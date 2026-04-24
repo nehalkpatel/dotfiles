@@ -10,6 +10,7 @@ dunst
 efibootmgr
 firefox
 foot
+fuzzel
 fzf
 git
 grim
@@ -123,5 +124,6 @@ wireless_tools
 wofi
 xdg-desktop-portal-hyprland
 xorg-xinit
+zoxide
 zram-generator
 zsh-syntax-highlighting

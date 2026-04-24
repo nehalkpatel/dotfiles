@@ -61,8 +61,9 @@ setopt inc_append_history     # Write to the history file immediately, not when 
 setopt share_history          # Share history between different instances of the shell.
 
 # Tool integrations
-command -v uv >/dev/null 2>&1 && eval "$(uv generate-shell-completion zsh)"
-command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)
+command -v uv     >/dev/null 2>&1 && eval "$(uv generate-shell-completion zsh)"
+command -v fzf    >/dev/null 2>&1 && source <(fzf --zsh)
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)"
 
 if [[ -d "${USR_DIR}/share/zsh-syntax-highlighting" ]]; then
     export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=${USR_DIR}/share/zsh-syntax-highlighting/highlighters
