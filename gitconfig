@@ -21,13 +21,8 @@
 	ui = auto
 [core]
 	pager = less -FRX
-	editor = nvim
-[diff]
-	tool = opendiff
 [difftool]
 	prompt = false
-[difftool "opendiff"]
-	cmd = /usr/bin/opendiff $LOCAL $REMOTE
 [alias]
 	ls = log --pretty=format:\"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]\" --decorate
 	ll = log --pretty=format:\"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]\" --decorate --numstat
