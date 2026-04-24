@@ -1,5 +1,5 @@
 [global]
-    font = "Source Code Pro for Powerline 9"
+    font = "Hack Nerd Fonto Propo 12"
     allow_markup = yes
     format = "<b>%s %p</b>\n%b"
     sort = yes
@@ -14,7 +14,7 @@
     padding = 8
     horizontal_padding = 8
     separator_color = frame
-    dmenu = "/usr/bin/rofi"
+    dmenu = "/usr/bin/wofi"
     ignore_newline = no
 
     ### Icons ###
