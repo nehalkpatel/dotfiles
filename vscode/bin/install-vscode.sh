@@ -15,13 +15,7 @@ fi
 
 case "$(uname -s)" in
     Darwin) TARGET="$HOME/Library/Application Support/Code/User" ;;
-    Linux)
-        if [ -d "$HOME/.config/Code - OSS" ]; then
-            TARGET="$HOME/.config/Code - OSS/User"
-        else
-            TARGET="$HOME/.config/Code/User"
-        fi
-        ;;
+    Linux) TARGET="$HOME/.config/Code/User" ;;
     *)
         echo "error: unsupported platform $(uname -s)" >&2
         exit 1
