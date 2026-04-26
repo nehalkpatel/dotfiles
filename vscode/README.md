@@ -14,8 +14,7 @@ hosts/<hostname>/          one dir per machine (named to match `hostname -s`)
   overlay.json             host-specific overrides (optional)
   extensions.txt           extension IDs to install on this host
   mcp.json                 host-specific MCP servers (optional)
-bin/install-vscode.sh      merge layers and write live Code User dir
-bin/sync-extensions.sh     install extensions for this host
+bin/install-vscode.sh      merge settings + install missing extensions
 workspace-template/        drop into a project's repo for per-project settings
 ```
 
@@ -25,22 +24,24 @@ Merge precedence (later wins): `common` â†’ fragments listed in `manifest.txt` â
 
 ```sh
 cd ~/dotfiles
-vscode/bin/install-vscode.sh     # writes settings.json + symlinks keybindings/snippets/mcp
-vscode/bin/sync-extensions.sh    # code --install-extension for each line in extensions.txt
+vscode/bin/install-vscode.sh
 ```
 
-Both scripts auto-detect the host via `hostname -s` and look up
-`hosts/<hostname>/`. If the directory doesn't exist yet, create it
-with at minimum an `extensions.txt`.
+The script auto-detects the host via `hostname -s` and looks up
+`hosts/<hostname>/`. It writes `settings.json` (merged), symlinks
+keybindings/snippets/mcp, then `code --install-extension`s anything in
+`extensions.txt` that isn't already installed (so re-runs after settings
+tweaks are fast).
 
-Requires: `jq`, the `code` (or `code-insiders` / `codium`) CLI on PATH.
+Requires `jq`. The `code` CLI is found on PATH or, on macOS, inside
+`/Applications/Visual Studio Code.app` automatically.
 
 ## Adding a new host
 
 ```sh
 mkdir vscode/hosts/$(hostname -s)
 echo "work" > vscode/hosts/$(hostname -s)/manifest.txt   # optional
-touch vscode/hosts/$(hostname -s)/extensions.txt
+touch vscode/hosts/$(hostname -s)/extensions.txt          # add IDs as needed
 vscode/bin/install-vscode.sh
 ```
 
