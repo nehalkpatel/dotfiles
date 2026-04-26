@@ -1,0 +1,12 @@
+{
+  "atlascode.jira.enabled": true,
+  "atlascode.bitbucket.enabled": false,
+  "atlascode.rovodev.showEntitlementNotifications": false,
+  "axivion.dashboards": [
+    {
+      "id": "Stafl",
+      "url": "http://stafl-emb02.staflsystems.internal:9090/axivion",
+      "username": "nehal.patel"
+    }
+  ]
+}

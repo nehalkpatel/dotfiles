@@ -1,0 +1,29 @@
+{
+  "editor.fontFamily": "'Hack Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+  "editor.lineNumbers": "relative",
+  "editor.scrollBeyondLastLine": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "workbench.colorTheme": "Default Light Modern",
+  "terminal.integrated.scrollback": 10000,
+  "terminal.integrated.shellIntegration.history": 1000,
+  "terminal.integrated.suggest.enabled": false,
+  "terminal.integrated.suggest.cdPath": "off",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "githubPullRequests.pullBranch": "never",
+  "gitlens.rebaseEditor.ordering": "asc",
+  "gitlens.ai.model": "vscode",
+  "claudeCode.preferredLocation": "sidebar",
+  "claudeCode.selectedModel": "default",
+  "chat.viewSessions.orientation": "stacked",
+  "chat.mcp.gallery.enabled": true,
+  "chat.tools.terminal.autoApprove": {
+    "rg": true,
+    "ruff": true
+  },
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "errorLens.excludePatterns": ["**/*.md"],
+  "output.smartScroll.enabled": false,
+  "remote.autoForwardPortsSource": "hybrid"
+}
