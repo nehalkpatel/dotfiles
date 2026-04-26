@@ -4,6 +4,16 @@
   "editor.scrollBeyondLastLine": false,
   "diffEditor.ignoreTrimWhitespace": false,
   "workbench.colorTheme": "Default Light Modern",
+  "cmake.showOptionsMovedNotification": false,
+  "cmake.showConfigureWithDebuggerNotification": false,
+  "cmake.options.statusBarVisibility": "visible",
+  "cmake.pinnedCommands": [
+    "workbench.action.tasks.configureTaskRunner",
+    "workbench.action.tasks.runTask"
+  ],
+  "[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
   "terminal.integrated.scrollback": 10000,
   "terminal.integrated.shellIntegration.history": 1000,
   "terminal.integrated.suggest.enabled": false,
