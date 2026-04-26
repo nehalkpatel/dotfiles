@@ -1,0 +1,7 @@
+{
+  "C_Cpp.default.cppStandard": "c++23",
+  "cmake.useCMakePresets": "always",
+  "cmake.allowCommentsInPresetsFile": true,
+  "python.testing.pytestEnabled": true,
+  "python.missingPackage.severity": "Warning"
+}
